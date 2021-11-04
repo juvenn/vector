@@ -54,11 +54,11 @@ impl TransformConfig for CompoundConfig {
     }
 
     fn input_type(&self) -> DataType {
-        DataType::Any
+        self.steps.first().map(|t| t.input_type()).unwrap_or(DataType::Any)
     }
 
     fn output_type(&self) -> DataType {
-        DataType::Any
+        self.steps.last().map(|t| t.output_type()).unwrap_or(DataType::Any)
     }
 
     fn transform_type(&self) -> &'static str {
