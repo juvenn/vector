@@ -115,18 +115,7 @@ impl TaskTransform for Compound {
                         move |v| {
                             let mut output = Vec::<Event>::new();
                             let mut errors = Vec::<Event>::new();
-                            error_span!(
-                                "compound",
-                                component_kind = "transform",
-                                component_id = "%task.id()",
-                                component_type = "%task.typetag()",
-                                // maintained for compatibility
-                                component_name = "%task.id()",
-                            ).in_scope( || {
-                                t.transform(&mut output, &mut errors, v);
-                            });
-
-
+                            t.transform(&mut output, &mut errors, v);
                             emit!(&CompoundErrorEvents {
                                 count: errors.len(),
                             });
